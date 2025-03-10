@@ -14,6 +14,7 @@ const createUsers = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       age: req.body.age,
+      password: req.body.password,
     });
     try {
         const newUser = await user.save();
@@ -49,6 +50,9 @@ const updateUsers = async (req, res) => {
         }
         if (req.body.age != null) {
           userById.age = req.body.age;
+        }
+        if (req.body.password!= null) {
+          userById.password = req.body.password;
         }
         const updatedUsers = await userById.save();
         res.json(updatedUsers);
