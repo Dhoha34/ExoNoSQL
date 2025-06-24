@@ -1,0 +1,21 @@
+services:
+  api:
+    build:
+      context: . # use the current directory
+      dockerfile: Dockerfile # build the image with the dockerfile
+    working_dir: /usr/src  # set the working directory inside the container
+    ports:
+      - "3000:3000"
+    command: node server.js
+    depends_on:
+      - mongo # to ensure that the 'mongo' service starts before 'api' service
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data: # name volume for MongoDB data
